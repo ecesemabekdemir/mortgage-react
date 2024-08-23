@@ -49,37 +49,14 @@ export default function App() {
       <div className="containerBox">
         <div className="container">
           <Header />
-          <form className="customForm">
-            <div className="mortgageAmount">
-              <p>Mortgage Amount</p>
-              <input
-                type="number"
-                placeholder="£"
-                value={inputValue}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mortgage">
-              <div className="mortageItem">
-                <p>Mortgage Term</p>
-                <input
-                  type="number"
-                  placeholder="years"
-                  onChange={handleYearsInputChange}
-                  value={yearsValue}
-                />
-              </div>
-              <div className="mortageItem">
-                <p>Interest Rate </p>
-                <input
-                  type="number"
-                  placeholder="%"
-                  onChange={handleInteresInputChange}
-                  value={interestValue}
-                />
-              </div>
-            </div>
-          </form>
+          <Form
+            inputValue={inputValue}
+            interestValue={interestValue}
+            handleInputChange={handleInputChange}
+            yearsValue={yearsValue}
+            handleYearsInputChange={handleYearsInputChange}
+            handleInteresInputChange={handleInteresInputChange}
+          />
           <CalculatorBtn calculatePayment={calculatePayment} />
         </div>
         <div className="mortgageResult">
@@ -101,6 +78,52 @@ function Header() {
       <h1>Mortgage Calculator</h1>
       <ClearBtn />
     </div>
+  );
+}
+
+function Form({
+  interestValue,
+  yearsValue,
+  handleInputChange,
+  handleYearsInputChange,
+  handleInteresInputChange,
+  inputValue,
+}) {
+  return (
+    <form className="customForm">
+       <div className="mortgageForm">
+      <p>
+        Mortgage Amount
+        <input
+          type="number"
+          placeholder="£"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+      </p>
+      <div className="mortgage">
+        <p>
+          Mortgage Term{" "}
+          <input
+            type="number"
+            placeholder="years"
+            onChange={handleYearsInputChange}
+            value={yearsValue}
+          />
+        </p>
+        <p>
+          Interest Rate{" "}
+          <input
+            type="number"
+            placeholder="%"
+            onChange={handleInteresInputChange}
+            value={interestValue}
+          />
+        </p>
+      </div>
+      </div>
+      <Type />
+    </form>
   );
 }
 
@@ -132,7 +155,6 @@ function MortgageResultContainer({ monthlyPayment, totalPayment }) {
           again.
         </p>
       </div>
-
       <div className="result">
         <div className="monthlyResult">
           <h5>Your monthly repayments</h5>
@@ -145,5 +167,19 @@ function MortgageResultContainer({ monthlyPayment, totalPayment }) {
         </div>
       </div>
     </>
+  );
+}
+
+function Type() {
+  return (
+    <div className="type">
+      <p>
+        <input type="radio" /> Repayment
+      </p>
+      <p>
+        <input type="radio" name="" id="" />
+        Interest Only
+      </p>
+    </div>
   );
 }
